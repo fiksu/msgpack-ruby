@@ -269,7 +269,7 @@ static inline void msgpack_packer_write_double(msgpack_packer_t* pk, double v)
 static inline void msgpack_packer_write_raw_symbol_header(msgpack_packer_t* pk, unsigned int n)
 {
   if (n < 256) {
-    msgpack_buffer_ensure_writable(PACKER_BUFFER_(pk), 2);
+    msgpack_buffer_ensure_writable(PACKER_BUFFER_(pk), 3);
     msgpack_buffer_write_1(PACKER_BUFFER_(pk), 0xc7);
     msgpack_buffer_write_2(PACKER_BUFFER_(pk), n, 0x14);
   } else if (n < 65536) {
