@@ -80,8 +80,23 @@ describe Unpacker do
     }.should raise_error(EOFError)
   end
 
+  it 'unpacks symbols of varying lengths' do
+    small_symbol = :z
+    medium_symbol = ('y' * (2**8)).to_sym
+    large_symbol = ('x' * (2**16)).to_sym
+    
+    symbols = [small_symbol, medium_symbol, large_symbol]
+    symbols.each { |sym| unpacker.feed(sym.to_msgpack) }
+    
+    unpacked_symbols = []
+    unpacker.each do |sym|
+      unpacked_symbols << sym
+    end
+    unpacked_symbols.should == symbols
+  end
+
   let :sample_object do
-    [1024, {["a","b"]=>["c","d"]}, ["e","f"], "d", 70000, 4.12, 1.5, 1.5, 1.5]
+    [1024, {["a","b"]=>["c","d"]}, ["e","f"], "d", 70000, 4.12, 1.5, 1.5, 1.5, {:i => :j}, Time.now]
   end
 
   it 'feed and each continue internal state' do
