@@ -472,10 +472,6 @@ static int read_primitive(msgpack_unpacker_t* uk)
                 int64_t i64 = _msgpack_be64(cb->i64);
                 return object_complete(uk, rb_ll2inum(i64));
             }
-
-        //case 0xd4:
-        //case 0xd5:
-        //case 0xd6:  // big integer 16
             
         /* NOTE(eslavich): Added support for fixext 8, which is a one-byte
            type followed by 8 bytes of data.  We are using type 0x13 to
