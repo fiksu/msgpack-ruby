@@ -2,7 +2,7 @@
 *.so
 *.gem
 *.class
-.bundle
+*.bundle
 Gemfile*
 pkg
 test/debug.log
